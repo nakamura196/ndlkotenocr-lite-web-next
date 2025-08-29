@@ -64,6 +64,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { NDLKotenOCR } from 'ndl-koten-ocr-core'
 import sharp from 'sharp'
 
+export const maxDuration = 30 // Vercel関数のタイムアウト設定（秒）
+
 let ocrInstance: NDLKotenOCR | null = null
 
 async function initializeOCR() {
