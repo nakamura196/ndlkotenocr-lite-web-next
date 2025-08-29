@@ -40,9 +40,6 @@ export async function loadConfig(configPath: string | null) {
   const config = { ...defaultConfig };
 
   if (!configPath) {
-    console.log(
-      '出力生成: 設定ファイルのパスが指定されていません。デフォルト設定を使用します。'
-    );
     return config;
   }
 
@@ -81,15 +78,8 @@ export async function loadConfig(configPath: string | null) {
       }
     }
 
-    console.log(
-      '出力生成: 設定ファイルを読み込みました:',
-      config
-    );
     return config;
   } catch (error) {
-    console.warn(
-      `出力生成: 設定ファイルの読み込みに失敗しました: ${(error as Error).message}。デフォルト設定を使用します。`
-    );
     return config;
   }
 }
@@ -152,10 +142,6 @@ export class OutputGenerator {
    */
   constructor(config: OutputConfig | null = null) {
     this.config = config || { ...defaultConfig };
-    console.log(
-      '出力生成: 設定を適用しました:',
-      this.config
-    );
   }
 
   /**
@@ -174,11 +160,6 @@ export class OutputGenerator {
     _imageName = 'image',
     imageUrl: string | null = null
   ) {
-    console.log(
-      `出力生成: XML形式で出力を生成します (${
-        detections ? detections.length : 0
-      }件)`
-    );
 
     // 検出結果が空の場合は空のXMLを返す
     if (!detections || detections.length === 0) {
@@ -237,11 +218,6 @@ export class OutputGenerator {
     imageHeight: number,
     imageName = 'image'
   ) {
-    console.log(
-      `出力生成: JSON形式で出力を生成します (${
-        detections ? detections.length : 0
-      }件)`
-    );
 
     // 検出結果が空の場合は空のJSONを返す
     if (!detections || detections.length === 0) {
@@ -316,11 +292,6 @@ export class OutputGenerator {
    * @returns {string} テキスト形式の出力
    */
   generateTXT(detections: any[]) {
-    console.log(
-      `出力生成: テキスト形式で出力を生成します (${
-        detections ? detections.length : 0
-      }件)`
-    );
 
     // 検出結果が空の場合は空の文字列を返す
     if (!detections || detections.length === 0) {
@@ -361,9 +332,6 @@ export class OutputGenerator {
    * @returns {string} 統合されたXML形式の出力
    */
   generateCombinedXML(resultsArray: any[], imageNames: string[] = []): string {
-    console.log(
-      `出力生成: 統合XML形式で出力を生成します (${resultsArray.length}ファイル)`
-    );
 
     // 検出結果が空の場合は空のXMLを返す
     if (!resultsArray || resultsArray.length === 0) {
@@ -428,9 +396,6 @@ export class OutputGenerator {
    * @returns {Object} 統合されたJSON形式の出力
    */
   generateCombinedJSON(resultsArray: any[], imageNames: string[] = []): any {
-    console.log(
-      `出力生成: 統合JSON形式で出力を生成します (${resultsArray.length}ファイル)`
-    );
 
     // 検出結果が空の場合は空のJSONを返す
     if (!resultsArray || resultsArray.length === 0) {
@@ -482,9 +447,6 @@ export class OutputGenerator {
    * @returns {string} 統合されたテキスト形式の出力
    */
   generateCombinedTXT(resultsArray: any[], imageNames: string[] = []): string {
-    console.log(
-      `出力生成: 統合テキスト形式で出力を生成します (${resultsArray.length}ファイル)`
-    );
 
     // 検出結果が空の場合は空の文字列を返す
     if (!resultsArray || resultsArray.length === 0) {

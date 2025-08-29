@@ -132,6 +132,9 @@ export default function OCRApp() {
     setSelectedImages(thumbnails)
     setShowResults(false)
     setProcessedResults([])
+    // IIIFの結果もクリア
+    setSelectedIiifImages([])
+    setIiifManifest(null)
   }, [createThumbnail])
 
   // ドラッグ＆ドロップ処理
@@ -154,6 +157,10 @@ export default function OCRApp() {
   // IIIF マニフェスト処理
   const fetchAndConvertIiifManifest = useCallback(async (manifestUrl: string) => {
     setIiifLoading(true)
+    // 前の結果をクリア
+    setShowResults(false)
+    setProcessedResults([])
+    setSelectedImages([])
     try {
       const response = await fetch(manifestUrl)
       
@@ -221,6 +228,11 @@ export default function OCRApp() {
         const initialSelection = imageInfos.slice(0, Math.min(selectedImageCount, imageInfos.length))
         setSelectedIiifImages(initialSelection)
         
+        // ファイルアップロードの結果もクリア
+        setSelectedImages([])
+        setShowResults(false)
+        setProcessedResults([])
+        
         if (imageInfos.length === 0) {
           alert('このマニフェストには画像が見つかりませんでした')
         }
@@ -228,7 +240,6 @@ export default function OCRApp() {
         alert('マニフェストにアイテムが見つかりませんでした')
       }
     } catch (error) {
-      console.error('Failed to fetch or convert manifest', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'
       alert(`IIIFマニフェストの取得または変換に失敗しました: ${errorMessage}`)
     } finally {
@@ -269,7 +280,6 @@ export default function OCRApp() {
           image.onload = () => {
             // Ensure naturalWidth/naturalHeight are available
             if (image.naturalWidth === 0 || image.naturalHeight === 0) {
-              console.error('Image loaded but naturalWidth/naturalHeight are 0')
               reject(new Error('Image dimensions not available'))
             } else {
               resolve(undefined)
@@ -301,7 +311,6 @@ export default function OCRApp() {
       setCurrentResultIndex(0)
       setActiveTab('text')
     } catch (error) {
-      console.error('処理エラー:', error)
       alert('画像処理中にエラーが発生しました')
     } finally {
       setIsProcessing(false)
@@ -362,7 +371,6 @@ export default function OCRApp() {
           image.onload = () => {
             // Ensure naturalWidth/naturalHeight are available
             if (image.naturalWidth === 0 || image.naturalHeight === 0) {
-              console.error('IIIF image loaded but naturalWidth/naturalHeight are 0')
               reject(new Error('Image dimensions not available'))
             } else {
               resolve(undefined)
@@ -395,7 +403,6 @@ export default function OCRApp() {
       setActiveTab('text')
 
     } catch (error) {
-      console.error('IIIF画像処理エラー:', error)
       alert(`IIIF画像の処理中にエラーが発生しました: ${error instanceof Error ? error.message : '不明なエラー'}`)
     } finally {
       setIsProcessing(false)
@@ -557,7 +564,14 @@ export default function OCRApp() {
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 text-center">入力方法</h3>
             <div className="flex justify-center gap-4">
               <button
-                onClick={() => setInputMode('file')}
+                onClick={() => {
+                  setInputMode('file')
+                  // IIIFの結果をクリア
+                  setSelectedIiifImages([])
+                  setIiifManifest(null)
+                  setShowResults(false)
+                  setProcessedResults([])
+                }}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
                   inputMode === 'file'
                     ? 'bg-blue-600 text-white shadow-lg'
@@ -567,7 +581,13 @@ export default function OCRApp() {
                 ファイルアップロード
               </button>
               <button
-                onClick={() => setInputMode('iiif')}
+                onClick={() => {
+                  setInputMode('iiif')
+                  // ファイルアップロードの結果をクリア
+                  setSelectedImages([])
+                  setShowResults(false)
+                  setProcessedResults([])
+                }}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
                   inputMode === 'iiif'
                     ? 'bg-blue-600 text-white shadow-lg'

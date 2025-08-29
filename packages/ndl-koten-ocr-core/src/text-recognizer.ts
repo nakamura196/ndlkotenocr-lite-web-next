@@ -61,9 +61,6 @@ export class PARSEQ {
   async loadConfig(configPath = null) {
     const path = configPath || this.configPath;
     if (!path) {
-      console.log(
-        '設定ファイルのパスが指定されていません。デフォルト設定を使用します。'
-      );
       return this.config;
     }
 
@@ -95,19 +92,9 @@ export class PARSEQ {
       // 文字リストを取得
       this.config.charList =
         yamlConfig.model.charset_train.split('');
-      console.log(
-        `文字リストを読み込みました: ${this.config.charList.length}文字`
-      );
 
-      console.log(
-        '設定ファイルを読み込みました:',
-        this.config
-      );
       return this.config;
     } catch (error) {
-      console.warn(
-        `設定ファイルの読み込みに失敗しました: ${(error as Error).message}。デフォルト設定を使用します。`
-      );
       return this.config;
     }
   }
@@ -121,9 +108,6 @@ export class PARSEQ {
   async loadCharList(charListPath = null) {
     const path = charListPath || this.charListPath;
     if (!path) {
-      console.log(
-        '文字リストファイルのパスが指定されていません。デフォルトの文字リストを使用します。'
-      );
       return this.config.charList;
     }
 
@@ -146,17 +130,11 @@ export class PARSEQ {
         yamlConfig.model.charset_train
       ) {
         const charListStr = yamlConfig.model.charset_train;
-        console.log(
-          `文字リストを読み込みました: ${charListStr.length}文字`
-        );
         this.config.charList = charListStr.split('');
       }
 
       return this.config.charList;
     } catch (error) {
-      console.warn(
-        `文字リストファイルの読み込みに失敗しました: ${(error as Error).message}。デフォルトの文字リストを使用します。`
-      );
       return this.config.charList;
     }
   }
@@ -187,13 +165,11 @@ export class PARSEQ {
         graphOptimizationLevel: 'all',
       };
 
-      console.log(`モデルをロード中: ${this.modelPath}`);
       // モデルのロード
       this.session = await ort.InferenceSession.create(
         this.modelPath,
         options as ort.InferenceSession.SessionOptions
       );
-      console.log('モデルのロードが完了しました');
 
       // 入力テンソルの形状を取得 - 修正部分
       // 注意: 入力形状の取得を試みますが、失敗してもデフォルト値を使用して続行します
@@ -204,27 +180,12 @@ export class PARSEQ {
           this.session.inputNames.length > 0
         ) {
           // デフォルトの入力形状をそのまま使用
-          console.log(
-            `入力名: ${this.session.inputNames[0]}`
-          );
-          console.log(
-            `現在の入力形状: ${this.config.inputShape}`
-          );
         }
       } catch (shapeError) {
-        console.warn(
-          '入力形状の検出に失敗しました。デフォルト形状を使用します:',
-          shapeError
-        );
       }
 
       this.initialized = true;
-      console.log('PARSEQ モデルの初期化が完了しました');
     } catch (error) {
-      console.error(
-        'PARSEQ モデルの初期化に失敗しました:',
-        error
-      );
       throw new Error(
         `PARSEQ モデルの初期化に失敗しました: ${(error as Error).message}`
       );
@@ -400,10 +361,6 @@ export class PARSEQ {
 
       return text;
     } catch (error) {
-      console.error(
-        '認識処理中にエラーが発生しました:',
-        error
-      );
       throw new Error(
         `認識処理に失敗しました: ${(error as Error).message}`
       );

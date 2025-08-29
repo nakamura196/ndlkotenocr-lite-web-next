@@ -106,7 +106,6 @@ export class NDLKotenOCR {
 
       this.initialized = true;
     } catch (error) {
-      console.error('初期化エラー:', error);
       throw new Error(
         `NDLKotenOCR の初期化に失敗しました: ${error instanceof Error ? error.message : String(error)}`
       );
@@ -242,7 +241,6 @@ export class NDLKotenOCR {
 
       return results;
     } catch (error) {
-      console.error('処理エラー:', error);
       throw new Error(
         `画像処理に失敗しました: ${error instanceof Error ? error.message : String(error)}`
       );

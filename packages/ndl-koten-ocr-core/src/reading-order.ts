@@ -46,9 +46,6 @@ export async function loadConfig(configPath: string | null): Promise<ReadingOrde
   const config = { ...defaultConfig };
 
   if (!configPath) {
-    console.log(
-      '読み順処理: 設定ファイルのパスが指定されていません。デフォルト設定を使用します。'
-    );
     return config;
   }
 
@@ -74,16 +71,8 @@ export async function loadConfig(configPath: string | null): Promise<ReadingOrde
       }
     }
 
-    console.log(
-      '読み順処理: 設定ファイルを読み込みました:',
-      config
-    );
     return config;
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.warn(
-      `読み順処理: 設定ファイルの読み込みに失敗しました: ${errorMessage}。デフォルト設定を使用します。`
-    );
     return config;
   }
 }
@@ -102,10 +91,6 @@ export class ReadingOrderProcessor {
    */
   constructor(config: ReadingOrderConfig | null = null) {
     this.config = config || { ...defaultConfig };
-    console.log(
-      '読み順処理: 設定を適用しました:',
-      this.config
-    );
   }
 
   /**
@@ -122,12 +107,6 @@ export class ReadingOrderProcessor {
       return [];
     }
 
-    console.log(
-      `読み順処理: ${detections.length}個のテキスト領域を処理します`
-    );
-    console.log(
-      `読み順処理: 縦書きモード = ${this.config.verticalMode}`
-    );
 
     // 検出結果をディープコピー
     const boxes: Detection[] = JSON.parse(JSON.stringify(detections));
@@ -152,9 +131,6 @@ export class ReadingOrderProcessor {
       }
     }
 
-    console.log(
-      `読み順処理: 処理完了 (${orderedDetections.length}個)`
-    );
     return orderedDetections;
   }
 

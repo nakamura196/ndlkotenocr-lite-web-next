@@ -51,10 +51,7 @@ export class RTMDet {
   async loadConfig(configPath: string | null = null): Promise<Config> {
     const path = configPath || this.configPath;
     if (!path) {
-      console.log(
-        '設定ファイルのパスが指定されていません。デフォルト設定を使用します。'
-      );
-      return this.config;
+        return this.config;
     }
 
     try {
@@ -91,15 +88,8 @@ export class RTMDet {
         }
       }
 
-      console.log(
-        '設定ファイルを読み込みました:',
-        this.config
-      );
       return this.config;
     } catch (error) {
-      console.warn(
-        `設定ファイルの読み込みに失敗しました: ${(error as Error).message}。デフォルト設定を使用します。`
-      );
       return this.config;
     }
   }
@@ -124,13 +114,11 @@ export class RTMDet {
         graphOptimizationLevel: 'all',
       };
 
-      console.log(`モデルをロード中: ${this.modelPath}`);
       // モデルのロード
       this.session = await ort.InferenceSession.create(
         this.modelPath,
         options as ort.InferenceSession.SessionOptions
       );
-      console.log('モデルのロードが完了しました');
 
       // 入力テンソルの形状を取得 - 修正部分
       // 注意: 入力形状の取得を試みますが、失敗してもデフォルト値を使用して続行します
@@ -141,27 +129,12 @@ export class RTMDet {
           this.session.inputNames.length > 0
         ) {
           // デフォルトの入力形状をそのまま使用
-          console.log(
-            `入力名: ${this.session.inputNames[0]}`
-          );
-          console.log(
-            `現在の入力形状: ${this.config.inputShape}`
-          );
         }
       } catch (shapeError) {
-        console.warn(
-          '入力形状の検出に失敗しました。デフォルト形状を使用します:',
-          shapeError
-        );
       }
 
       this.initialized = true;
-      console.log('RTMDet モデルの初期化が完了しました');
     } catch (error) {
-      console.error(
-        'RTMDet モデルの初期化に失敗しました:',
-        error
-      );
       throw new Error(
         `RTMDet モデルの初期化に失敗しました: ${(error as Error).message}`
       );
@@ -350,17 +323,9 @@ export class RTMDet {
       }
     }
 
-    console.log(
-      '[Postprocess] NMS前 検出数:',
-      detections.length
-    );
     const nmsResults = this.applyNMS(
       detections,
       this.config.nmsThreshold
-    );
-    console.log(
-      '[Postprocess] NMS後 検出数:',
-      nmsResults.length
     );
 
     return nmsResults;
@@ -461,7 +426,6 @@ export class RTMDet {
     }
 
     try {
-      console.log('[Detect] 入力画像の取得');
       const { tensor, metadata } =
         this.preprocess(imageData);
 
@@ -473,23 +437,15 @@ export class RTMDet {
       const feeds: Record<string, ort.Tensor> = {};
       feeds[this.session!.inputNames[0]] = inputTensor;
 
-      console.log(
-        '[Detect] モデルに入力:',
-        this.session!.inputNames[0]
-      );
       const outputs = await this.session!.run(feeds);
 
       const detections = this.postprocess(
         outputs,
         metadata
       );
-      console.log(
-        `[Detect] 検出数（NMS後）: ${detections.length}`
-      );
 
       return detections;
     } catch (error) {
-      console.error('検出処理中にエラー:', error);
       throw new Error(
         `検出処理に失敗しました: ${(error as Error).message}`
       );
