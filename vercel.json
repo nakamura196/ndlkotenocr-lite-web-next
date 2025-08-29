@@ -1,5 +1,7 @@
 {
-  "buildCommand": "npx turbo build",
+  "installCommand": "npm install -f",
+  "buildCommand": "npm run build",
   "outputDirectory": "apps/web/.next",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "rootDirectory": "."
 }
