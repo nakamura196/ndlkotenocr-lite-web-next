@@ -62,8 +62,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { NDLKotenOCR } from 'ndl-koten-ocr-core'
-import fs from 'fs'
-import path from 'path'
+import sharp from 'sharp'
 
 let ocrInstance: NDLKotenOCR | null = null
 
@@ -73,15 +72,16 @@ async function initializeOCR() {
   }
   
   if (!ocrInstance.initialized) {
-    const publicDir = path.join(process.cwd(), 'public')
+    const { join } = await import('path')
+    const publicDir = join(process.cwd(), 'public')
     
     await ocrInstance.initialize(
-      path.join(publicDir, 'models/rtmdet-s-1280x1280.onnx'),
+      join(publicDir, 'models/rtmdet-s-1280x1280.onnx'),
       {},
-      path.join(publicDir, 'config/ndl.yaml'),
-      path.join(publicDir, 'models/parseq-ndl-32x384-tiny-10.onnx'),
+      join(publicDir, 'config/ndl.yaml'),
+      join(publicDir, 'models/parseq-ndl-32x384-tiny-10.onnx'),
       {},
-      path.join(publicDir, 'config/ndl.yaml'),
+      join(publicDir, 'config/ndl.yaml'),
       (progress: number, message: string) => {
         console.log(`OCR初期化中: ${message} (${progress}%)`)
       }
@@ -107,25 +107,29 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     
-    // 一時ファイルとして保存
-    const tempPath = path.join('/tmp', `temp_${Date.now()}_${file.name}`)
-    fs.writeFileSync(tempPath, buffer)
-    
     try {
       // OCRインスタンスを初期化
       const ocr = await initializeOCR()
       
-      // 画像を読み込み
-      const canvas = require('canvas')
-      const img = await canvas.loadImage(tempPath)
+      // sharpを使って画像を処理し、raw pixelデータを取得
+      const image = sharp(buffer)
+      const metadata = await image.metadata()
+      const { data, info } = await image
+        .raw()
+        .ensureAlpha()
+        .toBuffer({ resolveWithObject: true })
+      
+      // ImageDataオブジェクトを作成
+      const imageData = {
+        data: new Uint8ClampedArray(data),
+        width: info.width,
+        height: info.height
+      } as ImageData
       
       // OCR処理実行
-      const result = await ocr.process(img, {
+      const result = await ocr.process(imageData, {
         imageName: file.name
       })
-      
-      // 一時ファイルを削除
-      fs.unlinkSync(tempPath)
       
       return NextResponse.json({
         success: true,
@@ -138,10 +142,6 @@ export async function POST(request: NextRequest) {
       })
       
     } catch (processingError) {
-      // 一時ファイルが残っている場合は削除
-      if (fs.existsSync(tempPath)) {
-        fs.unlinkSync(tempPath)
-      }
       throw processingError
     }
     
