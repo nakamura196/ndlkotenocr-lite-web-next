@@ -1,7 +1,7 @@
 {
-  "name": "NDL古典籍OCR",
-  "short_name": "NDL OCR",
-  "description": "AI技術を活用した高精度な古典籍文字認識システム",
+  "name": "NDL古典籍OCR Lite Next.js版",
+  "short_name": "NDL OCR Lite",
+  "description": "本アプリは NDL古典籍OCR-lite のNext.js移植版です。",
   "theme_color": "#667eea",
   "background_color": "#ffffff",
   "display": "standalone",
