@@ -29,25 +29,48 @@ export class TEIConverter {
   }
 
   private combineTEIResults(data: TEIConversionData): string {
-    const facsimileElements: string[] = [];
-    const surfaceElements: string[] = [];
+    const textElements: string[] = [];
     
     data.results?.forEach((result, index) => {
       if (result.xml) {
-        // Extract surface elements from individual TEI documents
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(result.xml, 'text/xml');
-        
-        // Get surface elements
-        const surfaces = doc.getElementsByTagName('surface');
-        if (surfaces.length > 0) {
-          for (let i = 0; i < surfaces.length; i++) {
-            const surface = surfaces[i];
-            // Update the xml:id to make it unique across all results
-            surface.setAttribute('xml:id', `surface_${index}_${i}`);
-            surfaceElements.push(surface.outerHTML);
+        // Parse the XML to extract text content
+        try {
+          // XMLをパースして、テキスト要素を抽出
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(result.xml, 'text/xml');
+          
+          // テキスト内容を取得
+          const textBody = doc.getElementsByTagName('body')[0];
+          if (textBody) {
+            // pタグの内容を抽出
+            const paragraphs = textBody.getElementsByTagName('p');
+            for (let i = 0; i < paragraphs.length; i++) {
+              const para = paragraphs[i];
+              // テキストノードのみを抽出（pb要素は除外）
+              const textContent = Array.from(para.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent?.trim())
+                .filter(text => text && text.length > 0)
+                .join('\n      ');
+              
+              if (textContent) {
+                const imageName = result.imageName || `image-${index + 1}`;
+                textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${textContent}\n    </div>`);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error parsing XML:', error);
+          // XMLパースエラーの場合、テキストのみを使用
+          if (result.text) {
+            const imageName = result.imageName || `image-${index + 1}`;
+            textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${result.text}\n    </div>`);
           }
         }
+      } else if (result.text) {
+        // XMLがない場合はテキストを直接使用
+        const imageName = result.imageName || `image-${index + 1}`;
+        textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${result.text}\n    </div>`);
       }
     });
     
@@ -64,9 +87,11 @@ export class TEIConverter {
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <facsimile>
-    ${surfaceElements.join('\n    ')}
-  </facsimile>
+  <text>
+    <body>
+${textElements.join('\n')}
+    </body>
+  </text>
 </TEI>`;
   }
 
