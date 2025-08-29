@@ -384,9 +384,6 @@ export default function OCRApp() {
           }
         })
         
-          text: result.text?.substring(0, 100)
-        })
-        
         results.push(result)
         setProcessedResults([...results]) // リアルタイム更新
         setShowResults(true)
