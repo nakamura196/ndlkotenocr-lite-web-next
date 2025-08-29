@@ -1,0 +1,98 @@
+{
+  "title": "NDL Koten OCR",
+  "subtitle": "High-precision Japanese classical text recognition system using AI technology",
+  "header": {
+    "title": "NDL Koten OCR",
+    "subtitle": "High-precision Japanese classical text recognition system using AI technology"
+  },
+  "inputMode": {
+    "title": "Input Method",
+    "fileUpload": "File Upload",
+    "iiifManifest": "IIIF Manifest"
+  },
+  "processingMode": {
+    "title": "Processing Method",
+    "client": "Client Processing",
+    "server": "Server Processing",
+    "clientDescription": "Execute OCR processing in the browser (Private, initial loading time required)",
+    "serverDescription": "Execute OCR processing on the server (Fast, available as API)"
+  },
+  "iiif": {
+    "urlLabel": "IIIF Manifest URL (v2/v3 supported)",
+    "urlPlaceholder": "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/411193.json",
+    "exampleText": "Example: https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/411193.json",
+    "loadButton": "Load Manifest",
+    "loadingButton": "Loading Manifest...",
+    "imagesDetected": "Detected {{count}} images from manifest",
+    "additionalImages": "{{count}} more images available",
+    "processButton": "Process {{count}} Images with OCR",
+    "noImagesFound": "No images found in this manifest",
+    "noItemsFound": "No items found in manifest",
+    "fetchError": "Failed to fetch or convert IIIF manifest: {{error}}",
+    "urlRequired": "Please enter a URL"
+  },
+  "fileUpload": {
+    "dragDropText": "Drag & drop images or click to select",
+    "supportedFormats": "Supported formats: PNG, JPEG, GIF, WebP",
+    "selectedImages": "Selected Images ({{count}} files)"
+  },
+  "processing": {
+    "ocrProcessing": "OCR Processing...",
+    "startOcr": "Start OCR Processing",
+    "initializingOcr": "Initializing OCR engine on client...",
+    "processingImage": "Processing image {{current}}/{{total}} on client...",
+    "serverProcessing": "OCR processing on server...",
+    "serverProcessingImage": "Processing image {{current}}/{{total}} on server...",
+    "downloadingIiifImages": "Downloading IIIF images...",
+    "downloadingImage": "Downloading image {{current}}/{{total}}...",
+    "processingError": "An error occurred during image processing",
+    "serverProcessingError": "An error occurred during server-side image processing: {{error}}",
+    "iiifProcessingError": "An error occurred during IIIF image processing: {{error}}"
+  },
+  "results": {
+    "title": "OCR Processing Results",
+    "previousButton": "Previous",
+    "nextButton": "Next",
+    "imageCount": "Image {{current}} / {{total}}",
+    "tabs": {
+      "text": "Text",
+      "json": "JSON",
+      "xml": "XML"
+    },
+    "copyButton": "Copy",
+    "copiedButton": "Copied!",
+    "downloadTitle": "Download Results",
+    "downloadTxt": "Download TXT",
+    "downloadJson": "Download JSON",
+    "downloadXml": "Download XML"
+  },
+  "footer": {
+    "description": "This application is a web port of",
+    "ndlOcrLink": "NDL Koten OCR-lite",
+    "webVersion": ".",
+    "developer": "Developer: Yuta Hashimoto (National Museum of Japanese History,",
+    "twitter": "@yuta1984",
+    "githubRepo": "GitHub Repository",
+    "nextjsDeveloper": "Next.js version by: Satoru Nakamura (University of Tokyo,",
+    "apiDocs": "📖 API Documentation (Swagger UI)",
+    "openApiSpec": "📄 OpenAPI Specification (JSON)"
+  },
+  "language": {
+    "switchTo": "Language",
+    "japanese": "日本語",
+    "english": "English"
+  },
+  "api": {
+    "title": "NDL Koten OCR API Documentation",
+    "subtitle": "RESTful API for Japanese Classical Text OCR",
+    "backToApp": "← Back to App",
+    "openApiJson": "OpenAPI JSON",
+    "loading": "Loading API documentation...",
+    "footerDescription": "This API is based on",
+    "footerBasedOn": ".",
+    "footerLinks": {
+      "apiEndpoint": "API Endpoint",
+      "githubRepo": "GitHub Repository"
+    }
+  }
+}

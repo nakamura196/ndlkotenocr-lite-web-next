@@ -1,0 +1,33 @@
+{
+  "name": "ndl-koten-ocr-monorepo",
+  "version": "1.0.0",
+  "description": "NDL Koten OCR monorepo with Next.js web app and OCR core package",
+  "private": true,
+  "packageManager": "npm@10.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean"
+  },
+  "keywords": [
+    "ocr",
+    "japanese",
+    "koten",
+    "ndl",
+    "onnx",
+    "webassembly",
+    "monorepo",
+    "turborepo"
+  ],
+  "author": "NDL",
+  "license": "MIT",
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@ndl-koten-ocr/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@iiif/parser": "^2.2.1",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.8",
+    "canvas": "^2.11.2",
+    "js-yaml": "^4.1.0",
+    "ndl-koten-ocr-core": "file:../../packages/ndl-koten-ocr-core",
+    "next": "^15.5.2",
+    "next-intl": "^4.3.4",
+    "next-themes": "^0.4.6",
+    "onnxruntime-web": "^1.14.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-dist": "^5.12.0",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@types/swagger-jsdoc": "^6.0.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "^15.5.2",
+    "postcss": "^8.5.6"
+  }
+}

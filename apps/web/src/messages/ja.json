@@ -1,0 +1,98 @@
+{
+  "title": "NDL古典籍OCR",
+  "subtitle": "AI技術を活用した高精度な古典籍文字認識システム",
+  "header": {
+    "title": "NDL古典籍OCR",
+    "subtitle": "AI技術を活用した高精度な古典籍文字認識システム"
+  },
+  "inputMode": {
+    "title": "入力方法",
+    "fileUpload": "ファイルアップロード",
+    "iiifManifest": "IIIFマニフェスト"
+  },
+  "processingMode": {
+    "title": "処理方法",
+    "client": "クライアント処理",
+    "server": "サーバー処理",
+    "clientDescription": "ブラウザ上でOCR処理を実行（プライベート、初回読み込み時間あり）",
+    "serverDescription": "サーバー上でOCR処理を実行（高速、APIとして利用可能）"
+  },
+  "iiif": {
+    "urlLabel": "IIIF Manifest URL (v2/v3対応)",
+    "urlPlaceholder": "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/411193.json",
+    "exampleText": "例: https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/411193.json",
+    "loadButton": "マニフェストを読み込む",
+    "loadingButton": "マニフェストを読み込み中...",
+    "imagesDetected": "マニフェストから {{count}} 枚の画像を検出",
+    "additionalImages": "他 {{count}} 枚の画像があります",
+    "processButton": "{{count}}枚の画像をOCR処理",
+    "noImagesFound": "このマニフェストには画像が見つかりませんでした",
+    "noItemsFound": "マニフェストにアイテムが見つかりませんでした",
+    "fetchError": "IIIFマニフェストの取得または変換に失敗しました: {{error}}",
+    "urlRequired": "URLを入力してください"
+  },
+  "fileUpload": {
+    "dragDropText": "画像をドラッグ＆ドロップまたはクリックして選択",
+    "supportedFormats": "対応形式: PNG, JPEG, GIF, WebP",
+    "selectedImages": "選択された画像 ({{count}}枚)"
+  },
+  "processing": {
+    "ocrProcessing": "OCR処理中...",
+    "startOcr": "OCR処理を開始",
+    "initializingOcr": "クライアントでOCRエンジンを初期化中...",
+    "processingImage": "画像 {{current}}/{{total}} をクライアントで処理中...",
+    "serverProcessing": "サーバーでOCR処理中...",
+    "serverProcessingImage": "画像 {{current}}/{{total}} をサーバーで処理中...",
+    "downloadingIiifImages": "IIIF画像をダウンロード中...",
+    "downloadingImage": "画像 {{current}}/{{total}} をダウンロード中...",
+    "processingError": "画像処理中にエラーが発生しました",
+    "serverProcessingError": "サーバーでの画像処理中にエラーが発生しました: {{error}}",
+    "iiifProcessingError": "IIIF画像の処理中にエラーが発生しました: {{error}}"
+  },
+  "results": {
+    "title": "OCR処理結果",
+    "previousButton": "前へ",
+    "nextButton": "次へ",
+    "imageCount": "画像 {{current}} / {{total}}",
+    "tabs": {
+      "text": "テキスト",
+      "json": "JSON",
+      "xml": "XML"
+    },
+    "copyButton": "コピー",
+    "copiedButton": "コピーしました!",
+    "downloadTitle": "結果をダウンロード",
+    "downloadTxt": "TXTダウンロード",
+    "downloadJson": "JSONダウンロード",
+    "downloadXml": "XMLダウンロード"
+  },
+  "footer": {
+    "description": "本アプリは",
+    "ndlOcrLink": "NDL古典籍OCR-lite",
+    "webVersion": "のWeb移植版です。",
+    "developer": "開発者：橋本雄太（国立歴史民俗博物館,",
+    "twitter": "@yuta1984",
+    "githubRepo": "GitHubリポジトリ",
+    "nextjsDeveloper": "Next.js版開発：中村覚（東京大学,",
+    "apiDocs": "📖 API ドキュメント (Swagger UI)",
+    "openApiSpec": "📄 OpenAPI 仕様書 (JSON)"
+  },
+  "language": {
+    "switchTo": "言語切替",
+    "japanese": "日本語",
+    "english": "English"
+  },
+  "api": {
+    "title": "NDL古典籍OCR API ドキュメント",
+    "subtitle": "RESTful API for Japanese Classical Text OCR",
+    "backToApp": "← アプリに戻る",
+    "openApiJson": "OpenAPI JSON",
+    "loading": "API ドキュメントを読み込み中...",
+    "footerDescription": "本APIは",
+    "footerBasedOn": "をベースにしています。",
+    "footerLinks": {
+      "apiEndpoint": "API エンドポイント",
+      "githubRepo": "GitHub リポジトリ"
+    }
+  }
+}
