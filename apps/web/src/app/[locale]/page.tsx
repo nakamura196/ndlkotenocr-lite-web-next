@@ -579,8 +579,7 @@ export default function Home() {
 
     if (format === 'tei') {
       // TEIは全結果を含むため、プロジェクト名を使用
-      const teiResult = generateTEIXML()
-      content = typeof teiResult === 'string' ? teiResult : (teiResult.xml || '')
+      content = generateTEIXML()
       mimeType = 'application/xml;charset=utf-8'
       extension = '.xml'
       fileName = `ocr_results_tei_${timestamp}`
