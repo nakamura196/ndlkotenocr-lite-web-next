@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "NDL Koten OCR monorepo with Next.js web app and OCR core package",
   "private": true,
-  "packageManager": "npm@10.0.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",

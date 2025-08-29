@@ -64,3 +64,5 @@ Thumbs.db
 # ONNX model files (large binary files)
 # Uncomment if you want to exclude model files from version control
 # models/*.onnx
+
+iiif-tei-monorepo

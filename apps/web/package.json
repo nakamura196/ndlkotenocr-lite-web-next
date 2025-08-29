@@ -16,7 +16,7 @@
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.8",
     "js-yaml": "^4.1.0",
-    "ndl-koten-ocr-core": "file:../../packages/ndl-koten-ocr-core",
+    "ndl-koten-ocr-core": "workspace:*",
     "next": "^15.5.2",
     "next-intl": "^4.3.4",
     "next-themes": "^0.4.6",
