@@ -29,70 +29,112 @@ export class TEIConverter {
   }
 
   private combineTEIResults(data: TEIConversionData): string {
-    const textElements: string[] = [];
+    const paragraphElements: string[] = [];
+    const surfaceElements: string[] = [];
     
     data.results?.forEach((result, index) => {
-      if (result.xml) {
-        // Parse the XML to extract text content
-        try {
-          // XMLをパースして、テキスト要素を抽出
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(result.xml, 'text/xml');
+      const pageNumber = index + 1;
+      const imageUrl = result.imageUrl || '';
+      const imageName = result.imageName || `image-${pageNumber}`;
+      const imageWidth = result.imageWidth || 1000;
+      const imageHeight = result.imageHeight || 1000;
+      
+      // Add page break element
+      let pageContent = `        <pb n="${pageNumber}" facs="${imageUrl}"/>\n`;
+      
+      // Process detections to add line breaks with zone references
+      if (result.detections && result.detections.length > 0) {
+        result.detections.forEach((detection: any, detIndex: number) => {
+          const lineNumber = detIndex + 1;
+          const zoneId = `zone-${pageNumber}-${lineNumber}`;
+          const text = detection.text || '';
           
-          // テキスト内容を取得
-          const textBody = doc.getElementsByTagName('body')[0];
-          if (textBody) {
-            // pタグの内容を抽出
-            const paragraphs = textBody.getElementsByTagName('p');
-            for (let i = 0; i < paragraphs.length; i++) {
-              const para = paragraphs[i];
-              // テキストノードのみを抽出（pb要素は除外）
-              const textContent = Array.from(para.childNodes)
-                .filter(node => node.nodeType === Node.TEXT_NODE)
-                .map(node => node.textContent?.trim())
-                .filter(text => text && text.length > 0)
-                .join('\n      ');
-              
-              if (textContent) {
-                const imageName = result.imageName || `image-${index + 1}`;
-                textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${textContent}\n    </div>`);
-              }
-            }
+          if (text) {
+            pageContent += `        <lb n="${pageNumber}.${lineNumber}" type="line" corresp="#${zoneId}"/>\n`;
+            pageContent += `        ${this._escapeXml(text)}\n`;
           }
-        } catch (error) {
-          console.error('Error parsing XML:', error);
-          // XMLパースエラーの場合、テキストのみを使用
-          if (result.text) {
-            const imageName = result.imageName || `image-${index + 1}`;
-            textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${result.text}\n    </div>`);
-          }
-        }
+        });
+        
+        // Create surface element with zones
+        let surfaceXml = `    <surface sameAs="${imageUrl}" ulx="0" uly="0" lrx="${imageWidth}" lry="${imageHeight}">\n`;
+        surfaceXml += `      <graphic url="${imageUrl}" width="${imageWidth}px" height="${imageHeight}px"/>\n`;
+        
+        result.detections.forEach((detection: any, detIndex: number) => {
+          const lineNumber = detIndex + 1;
+          const zoneId = `zone-${pageNumber}-${lineNumber}`;
+          const bbox = detection.bbox || [0, 0, 100, 100];
+          
+          surfaceXml += `      <zone xml:id="${zoneId}" ulx="${Math.round(bbox[0])}" uly="${Math.round(bbox[1])}" lrx="${Math.round(bbox[2])}" lry="${Math.round(bbox[3])}"/>\n`;
+        });
+        
+        surfaceXml += `    </surface>`;
+        surfaceElements.push(surfaceXml);
       } else if (result.text) {
-        // XMLがない場合はテキストを直接使用
-        const imageName = result.imageName || `image-${index + 1}`;
-        textElements.push(`    <!-- ${imageName} -->\n    <div>\n      ${result.text}\n    </div>`);
+        // Fallback: if no detections but has text, add lines without zones
+        const lines = result.text.split('\n');
+        lines.forEach((line: string, lineIndex: number) => {
+          if (line.trim()) {
+            const lineNumber = lineIndex + 1;
+            pageContent += `        <lb n="${pageNumber}.${lineNumber}" type="line"/>\n`;
+            pageContent += `        ${this._escapeXml(line.trim())}\n`;
+          }
+        });
       }
+      
+      paragraphElements.push(pageContent);
     });
     
     // Build combined TEI document
-    return `<?xml version="1.0" encoding="UTF-8"?>
+    let tei = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>${data.title || 'OCR処理結果'}</title>
+        <title>${this._escapeXml(data.title || 'OCR処理結果')}</title>
+        <respStmt>
+          <resp>Automated Transcription</resp>
+          <name ref="https://github.com/ndl-lab/ndlkotenocr-lite">NDL古典籍OCR-Liteアプリケーション</name>
+        </respStmt>
       </titleStmt>
+      <publicationStmt>
+        <p>${data.sourceUrl?.startsWith('http') ? 'Converted from IIIF Manifest' : 'Converted from uploaded images'}</p>
+      </publicationStmt>
       <sourceDesc>
-        <p>${data.sourceUrl || 'User uploaded images'}</p>
+        <p>${this._escapeXml(data.sourceUrl || 'User uploaded images')}</p>
       </sourceDesc>
     </fileDesc>
   </teiHeader>
   <text>
     <body>
-${textElements.join('\n')}
+      <p>
+${paragraphElements.join('')}      </p>
     </body>
-  </text>
-</TEI>`;
+  </text>`;
+    
+    // Add facsimile section if we have surface elements
+    if (surfaceElements.length > 0) {
+      const facsimileAttr = data.sourceUrl?.startsWith('http') ? ` sameAs="${this._escapeXml(data.sourceUrl)}"` : '';
+      tei += `
+  <facsimile${facsimileAttr}>
+${surfaceElements.join('\n')}
+  </facsimile>`;
+    }
+    
+    tei += '\n</TEI>';
+    
+    return tei;
+  }
+  
+  private _escapeXml(text: string): string {
+    if (!text) return '';
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
   }
 
   private generateXML(data: TEIConversionData): string {
