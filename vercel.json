@@ -1,7 +1,6 @@
 {
-  "installCommand": "npm install -f",
-  "buildCommand": "npm run build",
+  "installCommand": "npm install --force",
+  "buildCommand": "npx turbo build --filter=@ndl-koten-ocr/web",
   "outputDirectory": "apps/web/.next",
-  "framework": "nextjs",
-  "rootDirectory": "."
+  "framework": "nextjs"
 }
