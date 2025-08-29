@@ -37,7 +37,7 @@ const defaultConfig = {
  * @returns {Promise<Object>} 読み込まれた設定
  */
 export async function loadConfig(configPath: string | null) {
-  let config = { ...defaultConfig };
+  const config = { ...defaultConfig };
 
   if (!configPath) {
     console.log(

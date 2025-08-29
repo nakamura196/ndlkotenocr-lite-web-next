@@ -27,7 +27,7 @@ export default function Footer() {
         >
           {t('twitter')}
         </a>
-        ） - 
+        ） -&nbsp;
         <a
           href="https://github.com/yuta1984/ndlkotenocr-lite-web"
           target="_blank"
@@ -45,7 +45,7 @@ export default function Footer() {
         >
           @nakamura196
         </a>
-        ） - 
+        ） -&nbsp;
         <a
           href="https://github.com/nakamura196/ndlkotenocr-lite-web-next"
           target="_blank"

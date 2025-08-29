@@ -73,7 +73,7 @@ export class NDLKotenOCR {
         recognizerModelPath,
         recognizerConfig,
         recognizerConfigPath,
-        'config/NDLmoji.yaml' // 文字リストファイルパス
+        '/config/NDLmoji.yaml' // 文字リストファイルパス（絶対パス）
       );
       await this.textRecognizer.initialize();
       this.updateProgress(

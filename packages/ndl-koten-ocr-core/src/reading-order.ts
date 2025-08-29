@@ -43,7 +43,7 @@ const defaultConfig: ReadingOrderConfig = {
  * @returns {Promise<ReadingOrderConfig>} 読み込まれた設定
  */
 export async function loadConfig(configPath: string | null): Promise<ReadingOrderConfig> {
-  let config = { ...defaultConfig };
+  const config = { ...defaultConfig };
 
   if (!configPath) {
     console.log(

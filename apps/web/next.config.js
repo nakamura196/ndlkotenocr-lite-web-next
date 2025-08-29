@@ -7,6 +7,8 @@ const nextConfig = {
   experimental: {
     esmExternals: 'loose'
   },
+  trailingSlash: true,
+  output: "export",
   images: {
     remotePatterns: [
       {
