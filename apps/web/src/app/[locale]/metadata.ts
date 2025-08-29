@@ -41,7 +41,7 @@ export async function generateMetadata({
       title,
       description,
       url: currentUrl,
-      siteName: title,
+      siteName: 'NDL古典籍OCR Lite Next.js版',
       images: [
         {
           url: `${siteUrl}/og-image.png`,

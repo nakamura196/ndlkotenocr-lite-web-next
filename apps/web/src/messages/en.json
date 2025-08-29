@@ -1,6 +1,6 @@
 {
-  "title": "NDL Koten OCR",
-  "subtitle": "High-precision Japanese classical text recognition system using AI technology",
+  "title": "NDL Koten OCR Lite Next.js Edition",
+  "subtitle": "This app is a Next.js port of NDL Koten OCR-lite.",
   "header": {
     "title": "NDL Koten OCR",
     "subtitle": "High-precision Japanese classical text recognition system using AI technology"

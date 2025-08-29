@@ -1,6 +1,6 @@
 {
-  "title": "NDL古典籍OCR",
-  "subtitle": "AI技術を活用した高精度な古典籍文字認識システム",
+  "title": "NDL古典籍OCR Lite Next.js版",
+  "subtitle": "本アプリは NDL古典籍OCR-lite のNext.js移植版です。",
   "header": {
     "title": "NDL古典籍OCR",
     "subtitle": "AI技術を活用した高精度な古典籍文字認識システム"

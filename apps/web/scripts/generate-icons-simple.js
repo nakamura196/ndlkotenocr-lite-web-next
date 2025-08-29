@@ -47,13 +47,14 @@ async function generateIcons() {
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#gradient)"/>
-  <text x="600" y="250" font-family="sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="white">NDL古典籍OCR</text>
-  <text x="600" y="350" font-family="sans-serif" font-size="36" text-anchor="middle" fill="white">AI技術を活用した高精度な古典籍文字認識システム</text>
-  <g opacity="0.2">
-    <text x="300" y="480" font-family="sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="white">文</text>
-    <text x="500" y="480" font-family="sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="white">字</text>
-    <text x="700" y="480" font-family="sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="white">認</text>
-    <text x="900" y="480" font-family="sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="white">識</text>
+  <text x="600" y="200" font-family="sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white">NDL古典籍OCR Lite</text>
+  <text x="600" y="280" font-family="sans-serif" font-size="48" text-anchor="middle" fill="rgba(255,255,255,0.95)">Next.js版</text>
+  <text x="600" y="380" font-family="sans-serif" font-size="32" text-anchor="middle" fill="rgba(255,255,255,0.9)">本アプリは NDL古典籍OCR-lite のNext.js移植版です。</text>
+  <g opacity="0.15">
+    <text x="300" y="520" font-family="sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="white">文</text>
+    <text x="500" y="520" font-family="sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="white">字</text>
+    <text x="700" y="520" font-family="sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="white">認</text>
+    <text x="900" y="520" font-family="sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="white">識</text>
   </g>
 </svg>`;
 
