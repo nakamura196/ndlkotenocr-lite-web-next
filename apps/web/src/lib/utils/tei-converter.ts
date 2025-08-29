@@ -62,9 +62,16 @@ export class TEIConverter {
         result.detections.forEach((detection: any, detIndex: number) => {
           const lineNumber = detIndex + 1;
           const zoneId = `zone-${pageNumber}-${lineNumber}`;
-          const bbox = detection.bbox || [0, 0, 100, 100];
+          // detection.box is [x1, y1, x2, y2] format
+          const box = detection.box || detection.bbox || [0, 0, 100, 100];
           
-          surfaceXml += `      <zone xml:id="${zoneId}" ulx="${Math.round(bbox[0])}" uly="${Math.round(bbox[1])}" lrx="${Math.round(bbox[2])}" lry="${Math.round(bbox[3])}"/>\n`;
+          // Ensure we have valid coordinates
+          const ulx = Math.round(Math.min(box[0], box[2]));
+          const uly = Math.round(Math.min(box[1], box[3]));
+          const lrx = Math.round(Math.max(box[0], box[2]));
+          const lry = Math.round(Math.max(box[1], box[3]));
+          
+          surfaceXml += `      <zone xml:id="${zoneId}" ulx="${ulx}" uly="${uly}" lrx="${lrx}" lry="${lry}"/>\n`;
         });
         
         surfaceXml += `    </surface>`;
