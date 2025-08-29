@@ -164,4 +164,6 @@ docker run -p 3000:3000 ndlkotenocr-web
 
 ## 謝辞
 
-このプロジェクトは、国立国会図書館が開発した [ndlkotenocr-lite](https://github.com/ndl-lab/ndlkotenocr-lite) を基にしています。
+- このプロジェクトは、国立国会図書館が開発した [ndlkotenocr-lite](https://github.com/ndl-lab/ndlkotenocr-lite) を基にしています。
+- Web版の開発は、橋本雄太氏（[@yuta1984](https://x.com/yuta1984)、国立歴史民俗博物館）による [ndlkotenocr-lite-web](https://github.com/yuta1984/ndlkotenocr-lite-web) を参考にしています。
+- Next.js版の開発：中村覚（[@nakamura196](https://x.com/nakamura196)、東京大学）
