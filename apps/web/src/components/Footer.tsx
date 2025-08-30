@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -53,6 +54,14 @@ export default function Footer() {
         >
           {t('githubRepo')}
         </a>
+      </p>
+      <p className="mt-3">
+        <Link
+          href="/docs"
+          className="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+        >
+          📚 ドキュメント・スキーマファイル
+        </Link>
       </p>
     </footer>
   )

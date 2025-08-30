@@ -29,6 +29,7 @@ export class RTMDet {
   private session: ort.InferenceSession | null = null;
   private initialized: boolean = false;
   private classNames: string[] = ['text'];
+  private progressCallback?: (progress: number, message: string) => void;
 
   /**
    * コンストラクタ
@@ -99,9 +100,11 @@ export class RTMDet {
    * 設定を読み込み、ONNXモデルをロードし、推論セッションを作成します
    *
    * @param {string} configPath 設定ファイルのパス（オプション）
+   * @param {(progress: number, message: string) => void} progressCallback 進捗コールバック（オプション）
    * @returns {Promise<void>}
    */
-  async initialize(configPath = null) {
+  async initialize(configPath = null, progressCallback?: (progress: number, message: string) => void) {
+    this.progressCallback = progressCallback;
     try {
       // 設定ファイルを読み込む
       if (configPath || this.configPath) {
@@ -114,10 +117,16 @@ export class RTMDet {
         graphOptimizationLevel: 'all',
       };
 
-      // モデルのロード
-      this.session = await ort.InferenceSession.create(
+      // モデルのダウンロード進捗を追跡
+      if (this.progressCallback) {
+        this.progressCallback(0, 'レイアウト検出モデルをダウンロード中...');
+      }
+
+      // モデルのロード（ダウンロード進捗の追跡を含む）
+      this.session = await this.createSessionWithProgress(
         this.modelPath,
-        options as ort.InferenceSession.SessionOptions
+        options as ort.InferenceSession.SessionOptions,
+        'レイアウト検出モデル'
       );
 
       // 入力テンソルの形状を取得 - 修正部分
@@ -138,6 +147,62 @@ export class RTMDet {
       throw new Error(
         `RTMDet モデルの初期化に失敗しました: ${(error as Error).message}`
       );
+    }
+  }
+
+  /**
+   * 進捗追跡付きでセッションを作成
+   */
+  private async createSessionWithProgress(
+    modelPath: string,
+    options: ort.InferenceSession.SessionOptions,
+    modelName: string
+  ): Promise<ort.InferenceSession> {
+    try {
+      // First, try to fetch the model to track download progress
+      const response = await fetch(modelPath);
+      const contentLength = response.headers.get('content-length');
+      
+      if (contentLength && this.progressCallback) {
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+        
+        const reader = response.body!.getReader();
+        const chunks: Uint8Array[] = [];
+        
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          chunks.push(value);
+          loaded += value.length;
+          
+          const progress = Math.round((loaded / total) * 100);
+          this.progressCallback(progress, `${modelName}をダウンロード中... ${progress}%`);
+        }
+        
+        // Combine chunks into a single ArrayBuffer
+        const totalLength = chunks.reduce((acc, chunk) => acc + chunk.length, 0);
+        const result = new Uint8Array(totalLength);
+        let position = 0;
+        for (const chunk of chunks) {
+          result.set(chunk, position);
+          position += chunk.length;
+        }
+        
+        if (this.progressCallback) {
+          this.progressCallback(100, `${modelName}のロード中...`);
+        }
+        
+        // Create session from ArrayBuffer
+        return await ort.InferenceSession.create(result.buffer, options);
+      } else {
+        // Fallback to direct loading if content-length is not available
+        return await ort.InferenceSession.create(modelPath, options);
+      }
+    } catch (error) {
+      // Fallback to direct loading on error
+      return await ort.InferenceSession.create(modelPath, options);
     }
   }
 

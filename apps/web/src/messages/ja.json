@@ -94,5 +94,73 @@
       "apiEndpoint": "API エンドポイント",
       "githubRepo": "GitHub リポジトリ"
     }
+  },
+  "docs": {
+    "title": "NDL古典籍OCR Lite",
+    "subtitle": "Documentation Index",
+    "description": "スキーマファイルとドキュメント",
+    "backToApp": "アプリケーションに戻る",
+    "overview": {
+      "title": "ドキュメント概要",
+      "description": "NDL古典籍OCR Lite Next.js版で使用されているTEI XMLスキーマファイルとドキュメントの一覧です。これらのファイルは古典籍OCRの出力フォーマットを定義し、相互運用性を確保するために使用されます。"
+    },
+    "teiSchema": {
+      "title": "TEI スキーマファイル",
+      "badge": "XML Schema",
+      "description": "NDL古典籍OCRの出力に使用されるTEI XMLのスキーマ定義ファイルです。ODD（One Document Does it all）形式で記述されており、RelaxNG形式にも変換されています。",
+      "oddFile": "ODD ファイル",
+      "relaxngSchema": "RelaxNG Schema"
+    },
+    "htmlDocs": {
+      "title": "HTML ドキュメント",
+      "badge": "Reference",
+      "description": "TEIスキーマの詳細な解説とリファレンスドキュメントです。要素や属性の説明、使用例などが含まれています。モダンなスタイルで見やすく整形されています。",
+      "schemaReference": "スキーマリファレンス",
+      "styleTest": "スタイルテスト"
+    },
+    "styleResources": {
+      "title": "スタイルリソース",
+      "badge": "CSS",
+      "description": "TEI HTMLドキュメント用のモダンなCSSスタイルシートです。ダークモード対応、レスポンシブデザイン、印刷最適化などの機能を備えています。",
+      "modernCss": "Modern CSS",
+      "cssUsage": "CSS使用方法"
+    },
+    "usageExamples": {
+      "title": "使用方法とサンプル",
+      "badge": "Examples",
+      "description": "スキーマファイルとスタイルシートの具体的な使用方法とサンプルファイルです。",
+      "githubRepo": "GitHubリポジトリ",
+      "appManifest": "App Manifest"
+    },
+    "technicalSpecs": {
+      "title": "技術仕様",
+      "teiVersion": {
+        "title": "TEI バージョン",
+        "description": "TEI P5 Guidelines に準拠"
+      },
+      "schemaFormats": {
+        "title": "スキーマ形式",
+        "odd": "TEI One Document Does it all 形式",
+        "relaxng": "XML Schema 検証用",
+        "html": "人間が読みやすい形式"
+      },
+      "browserSupport": {
+        "title": "対応ブラウザ",
+        "chrome": "Chrome/Edge (最新版)",
+        "firefox": "Firefox (最新版)",
+        "safari": "Safari (最新版)",
+        "mobile": "モバイルブラウザ"
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "description": "NDL古典籍OCR Lite Next.js版に関するお問い合わせは、",
+      "githubIssues": "GitHubリポジトリのIssues",
+      "contactEnd": "までお願いします。",
+      "developer": "開発者",
+      "developerName": "中村覚（東京大学）",
+      "baseSystem": "ベースシステム",
+      "baseSystemName": "NDL古典籍OCR-lite by 橋本雄太（国立歴史民俗博物館）"
+    }
   }
 }

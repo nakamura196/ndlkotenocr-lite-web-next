@@ -58,14 +58,17 @@ export class NDLKotenOCR {
         layoutConfig,
         layoutConfigPath
       );
-      await this.layoutDetector.initialize();
+      
+      // レイアウトモデルのダウンロード進捗を追跡
+      await this.layoutDetector.initialize(null, (progress, message) => {
+        // レイアウトモデルの進捗を 0-50% にマッピング
+        const overallProgress = Math.round(progress * 0.5);
+        this.updateProgress(overallProgress, message);
+      });
+      
       this.updateProgress(
-        10,
+        50,
         'レイアウト認識モデルをロードしました'
-      );
-      this.updateProgress(
-        10,
-        '文字認識モデルのロードを開始します...'
       );
 
       // テキスト認識器の初期化
@@ -75,9 +78,16 @@ export class NDLKotenOCR {
         recognizerConfigPath,
         '/config/NDLmoji.yaml' // 文字リストファイルパス（絶対パス）
       );
-      await this.textRecognizer.initialize();
+      
+      // 文字認識モデルのダウンロード進捗を追跡
+      await this.textRecognizer.initialize(null, null, (progress, message) => {
+        // 文字認識モデルの進捗を 50-100% にマッピング
+        const overallProgress = 50 + Math.round(progress * 0.5);
+        this.updateProgress(overallProgress, message);
+      });
+      
       this.updateProgress(
-        15,
+        100,
         '文字認識モデルをロードしました'
       );
 
@@ -87,10 +97,6 @@ export class NDLKotenOCR {
         : null;
       this.readingOrderProcessor =
         new ReadingOrderProcessor(readingOrderConfig || { verticalMode: false });
-      this.updateProgress(
-        20,
-        '読み順処理の設定を読み込みました'
-      );
 
       // 出力生成の設定を読み込む
       const outputConfig = this.configPath
@@ -98,10 +104,6 @@ export class NDLKotenOCR {
         : null;
       this.outputGenerator = new OutputGenerator(
         outputConfig
-      );
-      this.updateProgress(
-        30,
-        '出力生成の設定を読み込みました'
       );
 
       this.initialized = true;

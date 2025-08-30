@@ -1,5 +1,11 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import { getTranslations } from 'next-intl/server'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5
+}
 
 export async function generateMetadata({
   params
@@ -69,11 +75,6 @@ export async function generateMetadata({
         'max-image-preview': 'large',
         'max-snippet': -1
       }
-    },
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 5
     },
     applicationName: title,
     category: 'technology',

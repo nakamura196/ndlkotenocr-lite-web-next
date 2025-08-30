@@ -94,5 +94,73 @@
       "apiEndpoint": "API Endpoint",
       "githubRepo": "GitHub Repository"
     }
+  },
+  "docs": {
+    "title": "NDL Koten OCR Lite",
+    "subtitle": "Documentation Index",
+    "description": "Schema Files and Documentation",
+    "backToApp": "Back to Application",
+    "overview": {
+      "title": "Documentation Overview",
+      "description": "List of TEI XML schema files and documentation used in NDL Koten OCR Lite Next.js Edition. These files define the output format of classical Japanese OCR and ensure interoperability."
+    },
+    "teiSchema": {
+      "title": "TEI Schema Files",
+      "badge": "XML Schema",
+      "description": "TEI XML schema definition files used for NDL Koten OCR output. Written in ODD (One Document Does it all) format and also converted to RelaxNG format.",
+      "oddFile": "ODD File",
+      "relaxngSchema": "RelaxNG Schema"
+    },
+    "htmlDocs": {
+      "title": "HTML Documentation",
+      "badge": "Reference",
+      "description": "Detailed explanations and reference documentation for TEI schema. Includes descriptions of elements and attributes, usage examples, etc. Formatted with modern styles for easy reading.",
+      "schemaReference": "Schema Reference",
+      "styleTest": "Style Test"
+    },
+    "styleResources": {
+      "title": "Style Resources",
+      "badge": "CSS",
+      "description": "Modern CSS stylesheet for TEI HTML documents. Features dark mode support, responsive design, print optimization, and more.",
+      "modernCss": "Modern CSS",
+      "cssUsage": "CSS Usage Guide"
+    },
+    "usageExamples": {
+      "title": "Usage & Examples",
+      "badge": "Examples",
+      "description": "Specific usage instructions and sample files for schema files and stylesheets.",
+      "githubRepo": "GitHub Repository",
+      "appManifest": "App Manifest"
+    },
+    "technicalSpecs": {
+      "title": "Technical Specifications",
+      "teiVersion": {
+        "title": "TEI Version",
+        "description": "Compliant with TEI P5 Guidelines"
+      },
+      "schemaFormats": {
+        "title": "Schema Formats",
+        "odd": "TEI One Document Does it all format",
+        "relaxng": "For XML Schema validation",
+        "html": "Human-readable format"
+      },
+      "browserSupport": {
+        "title": "Browser Support",
+        "chrome": "Chrome/Edge (latest)",
+        "firefox": "Firefox (latest)",
+        "safari": "Safari (latest)",
+        "mobile": "Mobile browsers"
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "For inquiries about NDL Koten OCR Lite Next.js Edition, please contact us at",
+      "githubIssues": "GitHub Repository Issues",
+      "contactEnd": ".",
+      "developer": "Developer",
+      "developerName": "Satoru Nakamura (University of Tokyo)",
+      "baseSystem": "Base System",
+      "baseSystemName": "NDL Koten OCR-lite by Yuta Hashimoto (National Museum of Japanese History)"
+    }
   }
 }

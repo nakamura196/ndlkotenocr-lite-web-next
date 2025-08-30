@@ -6,15 +6,15 @@ import Footer from '@/components/Footer'
 import StructuredData from '@/components/StructuredData'
 import '../globals.css'
 import { routing } from '@/i18n/routing'
-import { generateMetadata } from './metadata'
+import { generateMetadata, viewport } from './metadata'
 
 // SSG対応
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-// メタデータのエクスポート
-export { generateMetadata }
+// メタデータとビューポートのエクスポート
+export { generateMetadata, viewport }
 
 export default async function LocaleLayout({
   children,

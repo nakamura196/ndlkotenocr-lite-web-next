@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:tei="http://www.tei-c.org/ns/1.0"
+         xmlns:teix="http://www.tei-c.org/ns/Examples"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+         ns="http://www.tei-c.org/ns/1.0"><!--
+Schema generated from ODD source 2025-08-30T03:12:44Z. . 
+TEI Edition: P5 Version 4.10.1. Last updated on 28th August 2025, revision 3cd82e7a3 
+TEI Edition Location: https://www.tei-c.org/Vault/P5/4.10.1/ 
+  
+--><!--[https://creativecommons.org/licenses/by/4.0/] このODDはクリエイティブ・コモンズ 表示 4.0 国際ライセンスの下に提供されています This ODD is licensed under Creative Commons Attribution 4.0 International License-->
+   <define name="tei_att.global.attributes">
+      <ref name="tei_att.global.attribute.xmlid"/>
+      <ref name="tei_att.global.attribute.xmllang"/>
+   </define>
+   <define name="tei_att.global.attribute.xmlid">
+      <optional>
+         <attribute name="xml:id">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">一意識別子</a:documentation>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.global.attribute.xmllang">
+      <optional>
+         <attribute name="xml:lang">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">言語コード</a:documentation>
+            <data type="language"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.typed.attributes">
+      <ref name="tei_att.typed.attribute.type"/>
+   </define>
+   <define name="tei_att.typed.attribute.type">
+      <optional>
+         <attribute name="type">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">タイプ</a:documentation>
+            <data type="token"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.coordinated.attributes">
+      <ref name="tei_att.coordinated.attribute.ulx"/>
+      <ref name="tei_att.coordinated.attribute.uly"/>
+      <ref name="tei_att.coordinated.attribute.lrx"/>
+      <ref name="tei_att.coordinated.attribute.lry"/>
+   </define>
+   <define name="tei_att.coordinated.attribute.ulx">
+      <optional>
+         <attribute name="ulx">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">左上X座標</a:documentation>
+            <data type="double"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.coordinated.attribute.uly">
+      <optional>
+         <attribute name="uly">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">左上Y座標</a:documentation>
+            <data type="double"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.coordinated.attribute.lrx">
+      <optional>
+         <attribute name="lrx">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">右下X座標</a:documentation>
+            <data type="double"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_att.coordinated.attribute.lry">
+      <optional>
+         <attribute name="lry">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">右下Y座標</a:documentation>
+            <data type="double"/>
+         </attribute>
+      </optional>
+   </define>
+   <define name="tei_TEI">
+      <element name="TEI">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">NDL古典籍OCR TEIドキュメントのルート要素</a:documentation>
+         <group>
+            <ref name="tei_teiHeader"/>
+            <ref name="tei_text"/>
+            <optional>
+               <ref name="tei_facsimile"/>
+            </optional>
+         </group>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_teiHeader">
+      <element name="teiHeader">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">文書情報を含むメタデータヘッダー</a:documentation>
+         <ref name="tei_fileDesc"/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_fileDesc">
+      <element name="fileDesc">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ファイル記述</a:documentation>
+         <group>
+            <ref name="tei_titleStmt"/>
+            <ref name="tei_publicationStmt"/>
+            <ref name="tei_sourceDesc"/>
+         </group>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_titleStmt">
+      <element name="titleStmt">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">タイトル声明</a:documentation>
+         <group>
+            <ref name="tei_title"/>
+            <zeroOrMore>
+               <ref name="tei_respStmt"/>
+            </zeroOrMore>
+         </group>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_title">
+      <element name="title">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">タイトル</a:documentation>
+         <text/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_respStmt">
+      <element name="respStmt">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">責任声明</a:documentation>
+         <group>
+            <ref name="tei_resp"/>
+            <ref name="tei_name"/>
+         </group>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_resp">
+      <element name="resp">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">責任の記述</a:documentation>
+         <text/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_name">
+      <element name="name">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">名前</a:documentation>
+         <text/>
+         <ref name="tei_att.global.attributes"/>
+         <optional>
+            <attribute name="ref">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">参照URL</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_publicationStmt">
+      <element name="publicationStmt">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">出版声明</a:documentation>
+         <ref name="tei_p"/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_sourceDesc">
+      <element name="sourceDesc">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ソース記述</a:documentation>
+         <ref name="tei_p"/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_text">
+      <element name="text">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">テキスト</a:documentation>
+         <ref name="tei_body"/>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_body">
+      <element name="body">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">本文</a:documentation>
+         <oneOrMore>
+            <ref name="tei_p"/>
+         </oneOrMore>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_p">
+      <element name="p">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">段落</a:documentation>
+         <zeroOrMore>
+            <choice>
+               <text/>
+               <ref name="tei_pb"/>
+               <ref name="tei_lb"/>
+            </choice>
+         </zeroOrMore>
+         <ref name="tei_att.global.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_pb">
+      <element name="pb">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ページ区切り</a:documentation>
+         <empty/>
+         <ref name="tei_att.global.attributes"/>
+         <optional>
+            <attribute name="n">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ページ番号</a:documentation>
+               <data type="string"/>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="facs">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ファクシミリ参照</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_lb">
+      <element name="lb">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">行区切り</a:documentation>
+         <empty/>
+         <ref name="tei_att.global.attributes"/>
+         <ref name="tei_att.typed.attributes"/>
+         <optional>
+            <attribute name="n">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">行番号</a:documentation>
+               <data type="string"/>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="corresp">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">対応するゾーン</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_facsimile">
+      <element name="facsimile">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ファクシミリ</a:documentation>
+         <oneOrMore>
+            <ref name="tei_surface"/>
+         </oneOrMore>
+         <ref name="tei_att.global.attributes"/>
+         <optional>
+            <attribute name="sameAs">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">同一参照</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_surface">
+      <element name="surface">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">表面</a:documentation>
+         <group>
+            <optional>
+               <ref name="tei_graphic"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="tei_zone"/>
+            </zeroOrMore>
+         </group>
+         <ref name="tei_att.global.attributes"/>
+         <ref name="tei_att.coordinated.attributes"/>
+         <optional>
+            <attribute name="sameAs">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">同一参照</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_graphic">
+      <element name="graphic">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">画像</a:documentation>
+         <empty/>
+         <ref name="tei_att.global.attributes"/>
+         <optional>
+            <attribute name="url">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">URL</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="width">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">幅</a:documentation>
+               <data type="token">
+                  <param name="pattern">[\-+]?[\d]+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|ch|rem|vw|vh|vmin|vmax)</param>
+               </data>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="height">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">高さ</a:documentation>
+               <data type="token">
+                  <param name="pattern">[\-+]?[\d]+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|ch|rem|vw|vh|vmin|vmax)</param>
+               </data>
+            </attribute>
+         </optional>
+         <empty/>
+      </element>
+   </define>
+   <define name="tei_zone">
+      <element name="zone">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">ゾーン</a:documentation>
+         <empty/>
+         <ref name="tei_att.global.attributes"/>
+         <ref name="tei_att.coordinated.attributes"/>
+         <empty/>
+      </element>
+   </define>
+   <start>
+      <choice>
+         <ref name="tei_TEI"/>
+      </choice>
+   </start>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="tei"
+           uri="http://www.tei-c.org/ns/1.0"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="xs"
+           uri="http://www.w3.org/2001/XMLSchema"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="rng"
+           uri="http://relaxng.org/ns/structure/1.0"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="rna"
+           uri="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="sch"
+           uri="http://purl.oclc.org/dsdl/schematron"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:rng="http://relaxng.org/ns/structure/1.0"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           prefix="sch1x"
+           uri="http://www.ascc.net/xml/schematron"/>
+   <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+            id="ndl_koten_ocr_minimal-line-zone-correspondence-constraint-rule-1">
+      <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                context="tei:lb[@corresp]">
+         <sch:let name="zoneId" value="substring-after(@corresp, '#')"/>
+         <sch:assert test="//tei:zone[@xml:id = $zoneId]">
+                  行ブレークは存在するゾーンを参照する必要があります / Line break must reference an existing zone
+                </sch:assert>
+      </sch:rule>
+   </pattern>
+   <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+            id="ndl_koten_ocr_minimal-page-numbering-constraint-rule-2">
+      <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                context="tei:lb[@n]">
+         <sch:assert test="matches(@n, '^\d+\.\d+$')">
+                  行番号は次の形式である必要があります: ページ.行 (例: 1.1, 2.3) / Line number must be in format: page.line (e.g., 1.1, 2.3)
+                </sch:assert>
+      </sch:rule>
+   </pattern>
+</grammar>
